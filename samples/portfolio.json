@@ -1,0 +1,27 @@
+{
+  "accounts": [
+    {
+      "name": "Fidelity Brokerage",
+      "assets": [
+        { "symbol": "AAPL", "quantity": 25 },
+        { "symbol": "MSFT", "quantity": 10 },
+        { "symbol": "VOO",  "quantity": 42 }
+      ]
+    },
+    {
+      "name": "Fidelity IRA",
+      "assets": [
+        { "symbol": "VTI", "quantity": 150 },
+        { "symbol": "VXUS", "quantity": 80 }
+      ]
+    },
+    {
+      "name": "Vanguard",
+      "assets": [
+        { "symbol": "ZETA", "quantity": 22 },
+        { "symbol": "TEM",  "quantity": 16 },
+        { "symbol": "HPQ",  "quantity": 99 }
+      ]
+    }
+  ]
+}

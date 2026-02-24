@@ -1,17 +1,20 @@
 import yfinance as yf
 import json
 import os
+import sys
 import smtplib
 from email.message import EmailMessage
 from dataclasses import dataclass
 
-sender = os.environ["SENDER_EMAIL"]
-recipient = os.environ["RECEIVER_EMAIL"]
-password = os.environ["SENDER_PASSWORD"]
+DEBUG_MODE = True
 
-print("sender email:", sender)
-print("receiver email:", recipient)
-print("sender password: ", password)
+sender = os.environ.get("SENDER_EMAIL")
+recipient = os.environ.get("RECEIVER_EMAIL")
+password = os.environ.get("SENDER_PASSWORD")
+
+if sender is None or recipient is None or password is None:
+    print("ERROR: Missing sender or recipient data. Did you source your env.sh?")
+    sys.exit()
 
 @dataclass
 class Asset:
@@ -30,7 +33,7 @@ def populate_assets(portfolio):
             ))
     return assets
 
-def load_portfolio(file_path="portfolio.json"):
+def load_portfolio(file_path="user_data/json/portfolio.json"):
     with open(file_path, "r") as f:
         return json.load(f)
 
@@ -39,7 +42,7 @@ def send_email():
     msg["Subject"] = "Test"
     msg["From"] = sender
     msg["To"] = recipient
-    msg.set_content("Third test email")
+    msg.set_content("test email")
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
         smtp.login(sender, password)
@@ -48,15 +51,17 @@ def send_email():
 
 def main():
     portfolio = load_portfolio()
-
-    print(portfolio)
-    print("\n\n")
-
     assets = populate_assets(portfolio)
 
-    print(assets)
+    if DEBUG_MODE:
+      print("sender email:", sender)
+      print("receiver email:", recipient)
+      print("sender password: ", password)
+      print(portfolio)
+      print("\n\n")
+      print(assets)
 
-    #send_email()
+    send_email()
 
     #for account in portfolio["accounts"]:    
 
