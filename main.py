@@ -6,7 +6,7 @@ import smtplib
 from email.message import EmailMessage
 from dataclasses import dataclass
 
-DEBUG_MODE = True
+DEBUG_MODE = False
 
 sender = os.environ.get("SENDER_EMAIL")
 recipient = os.environ.get("RECEIVER_EMAIL")
@@ -22,6 +22,10 @@ class Asset:
     quantity: float
     account: str
 
+def load_portfolio(file_path="user_data/json/portfolio.json"):
+    with open(file_path, "r") as f:
+        return json.load(f)
+
 def populate_assets(portfolio):
     assets = []
     for account in portfolio["accounts"]:
@@ -33,9 +37,11 @@ def populate_assets(portfolio):
             ))
     return assets
 
-def load_portfolio(file_path="user_data/json/portfolio.json"):
-    with open(file_path, "r") as f:
-        return json.load(f)
+def fetch(assets):
+    for x in assets:
+        print(x.symbol)
+
+    return 0
 
 def send_email():
     msg = EmailMessage()
@@ -48,10 +54,10 @@ def send_email():
         smtp.login(sender, password)
         smtp.send_message(msg)
 
-
 def main():
     portfolio = load_portfolio()
     assets = populate_assets(portfolio)
+    fetch(assets)
 
     if DEBUG_MODE:
       print("sender email:", sender)
