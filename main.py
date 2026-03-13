@@ -3,10 +3,9 @@ import argparse
 import json
 import os
 import sys
-import smtplib
 from email.message import EmailMessage
-import emailer
-from dataclasses import dataclass
+from portfolio_monitor.emailer import send_email
+from portfolio_monitor.dataclass_types import Asset
 
 #Print relevant data based on argument flag
 DEBUG_MODE = False
@@ -27,12 +26,6 @@ password = os.environ.get("SENDER_PASSWORD")
 if sender is None or recipient is None or password is None:
     print("ERROR: Missing sender or recipient data. Did you source your env.sh?")
     sys.exit()
-
-@dataclass
-class Asset:
-    symbol: str
-    quantity: float
-    account: str
 
 def load_portfolio(file_path="user_data/json/portfolio.json"):
     with open(file_path, "r") as f:
@@ -67,10 +60,8 @@ def main():
       print(portfolio)
       print("\n\n")
       print(assets)
-
-    send_email()
-
-    #for account in portfolio["accounts"]:    
+    else:
+      send_email(sender, recipient, password, "temp body")
 
 if __name__ == "__main__":
     main()
