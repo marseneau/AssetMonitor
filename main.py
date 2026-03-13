@@ -1,4 +1,5 @@
 import yfinance as yf
+import argparse
 import json
 import os
 import sys
@@ -7,6 +8,15 @@ from email.message import EmailMessage
 from dataclasses import dataclass
 
 DEBUG_MODE = False
+
+parser = argparse.ArgumentParser()
+parser.add_argument(
+        "-d",
+        "--debug",
+        action = "store_true",
+        default = False)
+
+DEBUG_MODE = parser.parse_args().debug
 
 sender = os.environ.get("SENDER_EMAIL")
 recipient = os.environ.get("RECEIVER_EMAIL")
