@@ -5,8 +5,10 @@ import os
 import sys
 import smtplib
 from email.message import EmailMessage
+import emailer
 from dataclasses import dataclass
 
+#Print relevant data based on argument flag
 DEBUG_MODE = False
 
 parser = argparse.ArgumentParser()
@@ -52,17 +54,6 @@ def fetch(assets):
         print(x.symbol)
 
     return 0
-
-def send_email():
-    msg = EmailMessage()
-    msg["Subject"] = "Test"
-    msg["From"] = sender
-    msg["To"] = recipient
-    msg.set_content("test email")
-
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-        smtp.login(sender, password)
-        smtp.send_message(msg)
 
 def main():
     portfolio = load_portfolio()
