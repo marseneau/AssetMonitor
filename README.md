@@ -20,7 +20,19 @@ AssetMonitor is a Python tool that automates daily monitoring of multi-account i
 ```bash
 git clone https://github.com/marseneau/AssetMonitor.git
 pip install yfinance
+mkdir AssetMonitor/user_data
+```
+
+### Environment setup
+
+AssetMonitor/samples directory provides templates for required environment variables and JSON input file.
+Both of the contained files will need to reside in AssetMonitor/user_data.
+**Note:** Do not commit these user_data contents with **any** real env.sh or portfolio data.
 
 ## Usage
 
-source env.sh
+### Run the script manually
+```bash
+source user_data/env.sh
+python main.py
+```
