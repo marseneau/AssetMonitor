@@ -5,7 +5,7 @@ import os
 import sys
 from email.message import EmailMessage
 from portfolio_monitor.emailer import send_email
-from portfolio_monitor.dataclass_types import Asset
+from portfolio_monitor.portfolio import load_portfolio
 
 #Print relevant data based on argument flag
 DEBUG_MODE = False
@@ -27,21 +27,6 @@ if sender is None or recipient is None or password is None:
     print("ERROR: Missing sender or recipient data. Did you source your env.sh?")
     sys.exit()
 
-def load_portfolio(file_path="user_data/json/portfolio.json"):
-    with open(file_path, "r") as f:
-        return json.load(f)
-
-def populate_assets(portfolio):
-    assets = []
-    for account in portfolio["accounts"]:
-        for asset in account["assets"]:
-            assets.append(Asset(
-                symbol=asset["symbol"],
-                quantity=asset["quantity"],
-                account=account["name"]
-            ))
-    return assets
-
 def fetch(assets):
     for x in assets:
         print(x.symbol)
@@ -50,16 +35,13 @@ def fetch(assets):
 
 def main():
     portfolio = load_portfolio()
-    assets = populate_assets(portfolio)
-    fetch(assets)
+    fetch(portfolio)
 
     if DEBUG_MODE:
       print("sender email:", sender)
       print("receiver email:", recipient)
       print("sender password: ", password)
       print(portfolio)
-      print("\n\n")
-      print(assets)
     else:
       send_email(sender, recipient, password, "temp body")
 
