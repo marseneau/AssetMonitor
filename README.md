@@ -59,7 +59,7 @@ chmod 755 run.sh
 3. Schedule with Cron
 
 Below example assumes 4:30PM EST, 30 minutes after market close.
-Additionally, a log file will be created on each execution.
+A log file will be created on each execution.
 
 ```
 crontab -e
