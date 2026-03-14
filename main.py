@@ -32,9 +32,6 @@ def main():
 
     if DEBUG_MODE:
         mock_performance(portfolio)
-        print("sender email:", sender)
-        print("receiver email:", recipient)
-        print("sender password: ", password)
         print("DEBUG DATA: ")
         print(portfolio)
     else:

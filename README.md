@@ -27,12 +27,41 @@ mkdir AssetMonitor/user_data
 
 AssetMonitor/samples directory provides templates for required environment variables and JSON input file.
 Both of the contained files will need to reside in AssetMonitor/user_data.
-**Note:** Do not commit these user_data contents with **any** real env.sh or portfolio data.
+**Note:** Do not commit these user_data contents with **any** personal env.sh or portfolio data. Git
+will ignore the directory by default.
 
 ## Usage
 
 ### Run the script manually
+Specify option '-d' to run in debug mode. This will generate filler data without necessitating 
+additional API calls.
 ```bash
 source user_data/env.sh
-python main.py
+python3 main.py [-d]
+```
+### Optionally, schedule to run with Cron
+
+1. Create a script, 'run.sh'
+
+```
+cd /path/to/AssetMonitor
+source user_data/env.sh
+python3 main.py
+```
+
+2. Make it executable
+
+```
+chmod +x run.sh
+```
+
+3. Schedule with Cron
+
+Provided example assumes eastern time, 30 minutes after market close (4:30PM).
+Additionally, a log file will be created on each execution.
+
+```
+crontab -e
+
+30 16 * * 1-5 /path/to/AssetMonitor/run.sh >> /path/to/AssetMonitor/log.txt 2>&1
 ```
