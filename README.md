@@ -43,7 +43,8 @@ python3 main.py [-d]
 
 1. Create a script, 'run.sh'
 
-```
+```bash
+#!/bin/bash
 cd /path/to/AssetMonitor
 source user_data/env.sh
 python3 main.py
@@ -51,13 +52,13 @@ python3 main.py
 
 2. Make it executable
 
-```
-chmod +x run.sh
+```bash
+chmod 755 run.sh
 ```
 
 3. Schedule with Cron
 
-Provided example assumes eastern time, 30 minutes after market close (4:30PM).
+Below example assumes 4:30PM EST, 30 minutes after market close.
 Additionally, a log file will be created on each execution.
 
 ```
