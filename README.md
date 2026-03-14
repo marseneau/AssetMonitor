@@ -81,7 +81,7 @@ AssetMonitor/
 │   ├── market_data.py
 │   └── portfolio.py
 │
-├── samples/
+├── samples/    # example config files
 │   ├── env.sh
 │   └── portfolio.json
 │
