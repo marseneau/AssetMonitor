@@ -66,3 +66,25 @@ crontab -e
 
 30 16 * * 1-5 /path/to/AssetMonitor/run.sh >> /path/to/AssetMonitor/log.txt 2>&1
 ```
+
+## Project Structure
+
+AssetMonitor/
+│
+├── main.py
+├── README.md
+├── run.sh      # optionally used for scheduling
+│
+├── portfolio_monitor/
+│   ├── dataclass_types.py
+│   ├── emailer.py
+│   ├── market_data.py
+│   └── portfolio.py
+│
+├── samples/
+│   ├── env.sh
+│   └── portfolio.json
+│
+└── user_data/  # gitignored personal config
+    ├── env.sh
+    └── portfolio.json
