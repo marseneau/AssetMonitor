@@ -69,6 +69,7 @@ crontab -e
 
 ## Project Structure
 
+```
 AssetMonitor/
 │
 ├── main.py
@@ -88,3 +89,4 @@ AssetMonitor/
 └── user_data/  # gitignored personal config
     ├── env.sh
     └── portfolio.json
+```
