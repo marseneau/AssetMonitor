@@ -6,6 +6,7 @@ from email.message import EmailMessage
 from portfolio_monitor.emailer import *
 from portfolio_monitor.portfolio import load_portfolio
 from portfolio_monitor.market_data import *
+from portfolio_monitor.services.monitor_service import run_monitor
 
 #Print relevant data based on argument flag
 DEBUG_MODE = False
@@ -19,17 +20,10 @@ parser.add_argument(
 
 DEBUG_MODE = parser.parse_args().debug
 
-sender = os.environ.get("SENDER_EMAIL")
-recipient = os.environ.get("RECEIVER_EMAIL")
-password = os.environ.get("SENDER_PASSWORD")
-
-if sender is None or recipient is None or password is None:
-    print("ERROR: Missing sender or recipient data. Did you source your env.sh?")
-    sys.exit()
-
 def main():
     portfolio = load_portfolio()
 
+    #remainder gets moved to service
     if DEBUG_MODE:
         mock_performance(portfolio)
         print("DEBUG DATA: ")
