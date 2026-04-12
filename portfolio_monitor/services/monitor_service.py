@@ -1,9 +1,20 @@
+import sys
 
+from portfolio_monitor.emailer import *
+from portfolio_monitor.portfolio import *
+from portfolio_monitor.market_data import *
 
-def run_monitor(portfolio_source, market_data_client, report_sender = None, debug = False):
-    # load portfolio/account data
-    # fetch prices
-    # calculated changes
-    # build result object
-    # send email (optionally)
-    return ret
+def run_monitor(debug = False):
+    portfolio = load_portfolio()
+
+    if debug:
+        mock_performance(portfolio)
+        print("DEBUG DATA: ")
+        print(portfolio)
+        return portfolio
+    else:
+        fetch_performance(portfolio)
+        email_body = build_email_body(portfolio)
+        send_email(email_body)
+
+    return portfolio

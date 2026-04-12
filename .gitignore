@@ -1,5 +1,6 @@
 user_data/
 *.swp
 __pycache__/
+*.pyc
 run.sh
 log.txt

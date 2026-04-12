@@ -1,9 +1,18 @@
+import os
 import smtplib
 from collections import defaultdict
 from datetime import datetime
 from email.message import EmailMessage
 
-def send_email(sender, recipient, password, body):
+def send_email(body):
+    sender = os.environ.get("SENDER_EMAIL")
+    recipient = os.environ.get("RECEIVER_EMAIL")
+    password = os.environ.get("SENDER_PASSWORD")
+
+    if sender is None or recipient is None or password is None:
+        raise RuntimeError("ERROR: Missing sender or recipient data")
+        
+
     msg = EmailMessage()
     msg["Subject"] = "Portfolio Update: " + datetime.now().strftime("%m-%d-%Y")
     msg["From"] = sender
