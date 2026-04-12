@@ -1,6 +1,5 @@
 user_data/
 *.swp
 __pycache__/
-portfolio_monitor/__pycache__/
 run.sh
 log.txt
